@@ -11,16 +11,14 @@ use CodeIgniter\Filters\SecureHeaders;
 
 class Filters extends BaseConfig
 {
-    /**
-     * Configures aliases for Filter classes to
-     * make reading things nicer and simpler.
-     */
     public array $aliases = [
         'csrf'          => CSRF::class,
         'toolbar'       => DebugToolbar::class,
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'cors' => \Fluent\Cors\Filters\CorsFilter::class,
+ //       'cors'          => \App\Filters\Cors::class, // Add this line
     ];
 
     /**
@@ -32,11 +30,13 @@ class Filters extends BaseConfig
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
+        //    'cors',
         ],
         'after' => [
             'toolbar',
             // 'honeypot',
             // 'secureheaders',
+          //  'cors',
         ],
     ];
 
@@ -60,5 +60,10 @@ class Filters extends BaseConfig
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
-    public array $filters = [];
+    public array $filters = [
+        'cors' => [
+            'before' => ['api/*'],
+            'after' => ['api/*']
+        ],
+    ];
 }

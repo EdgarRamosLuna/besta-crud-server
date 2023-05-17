@@ -30,7 +30,11 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-
+//$routes->get('/api/tasks', 'Tasks::index');
+$routes->group('api', function ($routes) {
+    $routes->resource('tasks');
+});
+//$routes->resource('/api/tasks');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
